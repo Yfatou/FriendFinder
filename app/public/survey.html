@@ -162,5 +162,65 @@
             </div>
         </footer>
     </div>
+
+    <script type="text/javascript">
+        //When the user submit the survey
+        $("#ad-btn").on("click", function(event) {
+            event.preventDefault();
+    
+            //we check first that there is a value in the name and photo fields
+            function validate() {
+            var exist = true;
+            $(".form-control").each(function() {
+                if ($(this).val() === "") {
+                exist = false;
+                }
+            });
+    
+            //we also check that the user choosed ananswer for each question
+            $(".chosen-select").each(function() {
+                if ($(this).val() === "") {
+                exist = false;
+                }
+            });
+            return exist;
+            }
+    
+            if (validate()) {//all the fields contains data
+                //we create an user object
+                var userData = {
+                    name: $("#name").val(),
+                    photo: $("#linkToPhoto").val(),
+                    scores: [
+                        $("#question1").val(),
+                        $("#question2").val(),
+                        $("#question3").val(),
+                        $("#question4").val(),
+                        $("#question5").val(),
+                        $("#question6").val(),
+                        $("#question7").val(),
+                        $("#question8").val(),
+                        $("#question9").val(),
+                        $("#question10").val()
+                    ]
+                };
+    
+                // post the information in userData to the api friends
+                $.post("/api/friends", userData, function(data) {
+    
+                    // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                    $("#match-name").text(data.name);
+                    $("#match-img").attr("src", data.photo);
+    
+                    // Show the modal with the best match
+                    $("#results-modal").modal("toggle");
+    
+                });
+            } else {
+                alert("Some fields are not filled; please fill all of them and submit again!");
+            }
+        });
+    </script>
+
 </body>
 </html>
