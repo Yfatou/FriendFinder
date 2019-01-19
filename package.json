@@ -1,10 +1,11 @@
 {
   "name": "friendfinder",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Description Welcome to FriendFinder. This app will allows the user to find the next best frfiend. To do so, the user will have to go to the homepage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,7 @@
     "express": "^4.16.4",
     "node": "^11.6.0",
     "path": "^0.12.7"
-  }
+  },
+  "devDependencies": {},
+  "keywords": []
 }
