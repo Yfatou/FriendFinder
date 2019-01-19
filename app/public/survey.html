@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Reservation Page</title>
+  <title>Survey Page!</title>
 
     <!-- CSS & JS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -164,7 +164,7 @@
     </div>
 
     <!-- Modal that will be displayed once the user complete the survey -->
-		<!-- <div id="bestMatchModal" class="modal fade" role="dialog">
+		<div id="bestMatchModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -173,21 +173,21 @@
                     </div>
                     <div class="modal-body">
                         <h2 id="bestMatch"></h2>
-                        <img id="bestMatchPhoto" src="#">
+                        <img id="bestMatchPhoto" src="https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
 </body>
 </html>
 
 <script type="text/javascript">
     //When the user submit the survey
-    $("#ad-btn").on("click", function(event) {
+    $("#add-btn").on("click", function(event) {
         console.log("On click event");
         event.preventDefault();
         // Check if all the entries are filled
@@ -211,7 +211,7 @@
                     //newFriend object
                     var newFriend = {
                         name: $("#name").val().trim(),
-                        photo: $("#linkToPhotophoto").val().trim(),
+                        photo: $("#linkToPhoto").val().trim(),
                         scores: [
                             $("#question1").val(),
                             $("#question2").val(),
@@ -228,13 +228,17 @@
 
                     console.log(newFriend);
 
+                    var currentURL = window.location.origin;
+                    // AJAX post the data to the friends API.
+                    $.post(currentURL + "/api/friends", newFriend, function(data) {
+
 
                     //Post request with the newFriend 
-                    $.post("/api/friends", newFriend, function(data) {
-                        // $("#bestMatch").text(data.name);
-                        // $("#bestMatchPhoto").attr("src", data.photo);
+                    //$.post("/api/friends", newFriend, function(data) {
+                        $("#bestMatch").text(data.name);
+                        $("#bestMatchPhoto").attr("src", data.photo);
                         //Show the modal
-                        // $("#bestMatchModal").modal("toggle");
+                        $("#bestMatchModal").modal("toggle");
                         console.log("new friends inserted");
                     });
                 } else {

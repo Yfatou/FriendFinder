@@ -8,24 +8,26 @@ module.exports = function(app) {
         res.json(friends);
     });
 
-    app.post("api/friends", function(req, res){
+    app.post("/api/friends", function(req, res){
+        console.log(req.body.scores);
+
         //current user input
         var user = req.body;
-        var totalDiffNumm
         var totalDifferenceArray = [];
         var results = 0;
         for (var i = 0; i < friends.length; i++){
+            results = 0;
             for (var j = 0; j < friends[i].scores.length; j++){
                 results +=  parseInt(user.scores[j]) - parseInt(friends[i].scores[j]);
             }
             totalDifferenceArray.push({
                 name: friends[i].name,
                 linkToPhoto: friends[i].linkToPhoto,
-                totalDiffNumm: results
+                totalDiffNumm: Math.abs(results)
             });
         }
         arraySort(totalDifferenceArray, "totalDiffNum");
         friends.push(user);
-        return res.json(totalDifferenceArray[0]);
+        res.json(totalDifferenceArray[0]);
     });
 }
