@@ -164,23 +164,23 @@
     </div>
 
     <!-- Modal that will be displayed once the user complete the survey -->
-		<div id="bestMatchModal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h3 class="modal-title">Best Match!</h1>
-                    </div>
-                    <div class="modal-body">
-                        <h2 id="bestMatch"></h2>
-                        <img id="bestMatchPhoto" src="https://pbs.twimg.com/profile_images/691785039043022849/oWsy8LNR.jpg">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+	<div id="bestMatchModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Best Match!</h1>
+                </div>
+                <div class="modal-body">
+                    <h2 id="bestMatch"></h2>
+                    <img id="bestMatchPhoto" src="#">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
+    </div>
 
 </body>
 </html>
@@ -190,8 +190,10 @@
     $("#add-btn").on("click", function(event) {
         console.log("On click event");
         event.preventDefault();
+
         // Check if all the entries are filled
         var valid = true; //Default value will be true
+
         //First we check the name and the photo
         if($("#name").val() === "" || $("#linkToPhoto").val() === "") {
             valid = false;
@@ -227,16 +229,13 @@
                     };
 
                     console.log(newFriend);
-
-                    var currentURL = window.location.origin;
+                    
                     // AJAX post the data to the friends API.
-                    $.post(currentURL + "/api/friends", newFriend, function(data) {
-
-
                     //Post request with the newFriend 
-                    //$.post("/api/friends", newFriend, function(data) {
+                    $.post("/api/friends", newFriend, function(data) {
                         $("#bestMatch").text(data.name);
                         $("#bestMatchPhoto").attr("src", data.photo);
+
                         //Show the modal
                         $("#bestMatchModal").modal("toggle");
                         console.log("new friends inserted");
